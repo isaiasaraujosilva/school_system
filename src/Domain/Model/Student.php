@@ -2,33 +2,25 @@
 
 namespace Alura\Pdo\Domain\Model;
 
-class Student
+require_once '../../../../vendor/autoload.php';
+
+class Student extends People
 {
     private ?int $id;
-    private string $name;
-    private \DateTimeInterface $birthDate;
     private int $classId;
+    private int $peopleId;
 
-    public function __construct(?int $id, string $name, \DateTimeInterface $birthDate, int $classId)
+    public function __construct(?int $id, ?int $peopleId, string $name, string $gender, \DateTimeInterface $birthDate, int $classId, int $isAdmin)
     {
+        parent::__construct($peopleId, $name, $gender,$birthDate, $isAdmin);
         $this->id = $id;
-        $this->name = $name;
-        $this->birthDate = $birthDate;
         $this->classId = $classId;
-    }
-
-    public function defineId(int $id): void
-    {
-        if (!is_null($this->id)) {
-            throw new \DomainException('Você só pode definir o ID uma vez.');
-        }
-
-        $this->id = $id;
+        $this->peopleId = $peopleId;
     }
 
     public function age(): int
     {
-        return $this->birthDate
+        return $this->getBirthDate()
             ->diff(new \DateTimeImmutable())
             ->y;
     }
@@ -39,18 +31,13 @@ class Student
         return $this->id;
     }
 
-    public function name(): string
-    {
-        return $this->name;
-    }
-
-    public function birthDate(): \DateTimeInterface
-    {
-        return $this->birthDate;
-    }
-
     public function getClassId()
     {
         return $this->classId;
+    }
+
+    public function getPeopleId()
+    {
+        return $this->peopleId;
     }
 }

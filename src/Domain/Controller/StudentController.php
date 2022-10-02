@@ -2,7 +2,7 @@
 
 namespace Alura\Pdo\Domain\Controller;
 
-require_once '../../../../vendor/autoload.php';
+require_once '../../vendor/autoload.php';
 
 use Alura\Pdo\Domain\Model\Student;
 use DateTimeInterface;
